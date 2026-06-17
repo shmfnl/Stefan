@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_config_settings_branding_phase7_1_fix" model="ir.ui.view">
+        <field name="name">res.config.settings.backend.styling.app.view.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="90"/>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app string="Backend styling" data-string="Backend styling" name="web_branding_company" groups="base.group_system">
+                    <block title="Branding" name="backend_styling_branding_block">
+                        <setting string="Brand logo" help="Logo voor de backend-navbar.">
+                            <field name="brand_logo" widget="image" class="oe_avatar"/>
+                        </setting>
+                        <setting string="Brand logo dark" help="Optioneel dark logo voor de backend-navbar.">
+                            <field name="brand_logo_dark" widget="image" class="oe_avatar"/>
+                        </setting>
+                    </block>
+                    <block title="Kleuren" name="backend_styling_colors_block">
+                        <setting string="Primaire kleur" help="Dynamische hoofd-/highlightkleur voor actieve tabs, badges en geselecteerde staten.">
+                            <field name="brand_primary" widget="hex_color_picker"/>
+                        </setting>
+                        <setting string="Accentkleur" help="Dynamische accentkleur voor focus states van velden en formulieren.">
+                            <field name="brand_accent" widget="hex_color_picker"/>
+                        </setting>
+                        <setting string="Linkkleur" help="Kleur voor content-links en breadcrumb links in de backend.">
+                            <field name="link_color" widget="hex_color_picker"/>
+                        </setting>
+                    </block>
+                    <block title="Navbar" name="backend_styling_navbar_block">
+                        <setting string="Navbar achtergrond" help="Achtergrondkleur van de navbar.">
+                            <field name="navbar_bg" widget="hex_color_picker"/>
+                        </setting>
+                        <setting string="Navbar tekst" help="Tekstkleur van de navbar.">
+                            <field name="navbar_text" widget="hex_color_picker"/>
+                        </setting>
+                    </block>
+                    <block title="Knoppen" name="backend_styling_buttons_block">
+                        <setting string="Primaire knop achtergrond" help="Achtergrondkleur van primaire knoppen.">
+                            <field name="button_bg" widget="hex_color_picker"/>
+                        </setting>
+                        <setting string="Primaire knop tekst" help="Tekstkleur van primaire knoppen.">
+                            <field name="button_text" widget="hex_color_picker"/>
+                        </setting>
+                        <setting string="Primaire knop hover" help="Hoverkleur van primaire knoppen.">
+                            <field name="button_hover_bg" widget="hex_color_picker"/>
+                        </setting>
+                        <setting string="Secondary knop achtergrond" help="Achtergrondkleur van secondary knoppen.">
+                            <field name="button_secondary_bg" widget="hex_color_picker"/>
+                        </setting>
+                        <setting string="Secondary knop tekst" help="Tekstkleur van secondary knoppen.">
+                            <field name="button_secondary_text" widget="hex_color_picker"/>
+                        </setting>
+                        <setting string="Secondary knop hover" help="Hoverkleur van secondary knoppen.">
+                            <field name="button_secondary_hover_bg" widget="hex_color_picker"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>
