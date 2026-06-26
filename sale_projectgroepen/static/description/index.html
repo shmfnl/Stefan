@@ -1,496 +1,188 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Verkoop Projectgroepen - Pricelist Product Restrictions for Odoo Sales</title>
-    <style>
-        :root {
-            --vp-navy: #0f3157;
-            --vp-navy-dark: #09243f;
-            --vp-yellow: #f5c400;
-            --vp-yellow-soft: #fff6c7;
-            --vp-gray-50: #f7f9fb;
-            --vp-gray-100: #eef2f6;
-            --vp-gray-500: #64748b;
-            --vp-gray-700: #334155;
-            --vp-white: #ffffff;
-            --vp-green: #17a673;
-            --vp-red: #d94c4c;
-        }
+<section style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; color: #263238; line-height: 1.55; max-width: 1120px; margin: 0 auto; padding: 20px 16px;">
 
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            color: var(--vp-gray-700);
-            background: var(--vp-white);
-            line-height: 1.6;
-        }
-
-        .vp-wrapper {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 0 22px 48px;
-        }
-
-        .vp-hero {
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--vp-navy) 0%, var(--vp-navy-dark) 100%);
-            color: var(--vp-white);
-            border-radius: 24px;
-            margin: 28px 0 30px;
-            padding: 54px 46px;
-            min-height: 330px;
-        }
-
-        .vp-hero::after {
-            content: "";
-            position: absolute;
-            width: 360px;
-            height: 360px;
-            right: -120px;
-            top: -120px;
-            background: rgba(245, 196, 0, 0.18);
-            border-radius: 50%;
-        }
-
-        .vp-hero-accent {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            border-radius: 999px;
-            padding: 8px 14px;
-            font-size: 14px;
-            margin-bottom: 18px;
-        }
-
-        .vp-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--vp-yellow);
-            display: inline-block;
-        }
-
-        .vp-hero h1 {
-            font-size: 44px;
-            line-height: 1.12;
-            margin: 0 0 16px;
-            max-width: 780px;
-        }
-
-        .vp-hero p {
-            font-size: 19px;
-            max-width: 760px;
-            margin: 0 0 28px;
-            color: rgba(255, 255, 255, 0.88);
-        }
-
-        .vp-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .vp-badge {
-            background: var(--vp-yellow);
-            color: #202020;
-            font-weight: 700;
-            border-radius: 12px;
-            padding: 9px 13px;
-            font-size: 14px;
-        }
-
-        .vp-section {
-            margin: 34px 0;
-        }
-
-        .vp-section-title {
-            text-align: center;
-            margin-bottom: 22px;
-        }
-
-        .vp-section-title h2 {
-            font-size: 30px;
-            color: var(--vp-navy);
-            margin: 0 0 8px;
-        }
-
-        .vp-section-title p {
-            margin: 0 auto;
-            max-width: 760px;
-            color: var(--vp-gray-500);
-            font-size: 16px;
-        }
-
-        .vp-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 18px;
-        }
-
-        .vp-grid-2 {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 18px;
-        }
-
-        .vp-card {
-            background: var(--vp-white);
-            border: 1px solid var(--vp-gray-100);
-            border-radius: 20px;
-            padding: 24px;
-            box-shadow: 0 14px 34px rgba(15, 49, 87, 0.08);
-        }
-
-        .vp-card h3 {
-            color: var(--vp-navy);
-            margin: 0 0 10px;
-            font-size: 19px;
-        }
-
-        .vp-card p {
-            margin: 0;
-            color: var(--vp-gray-700);
-        }
-
-        .vp-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 14px;
-            background: var(--vp-yellow-soft);
-            color: var(--vp-navy);
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-        }
-
-        .vp-flow {
-            background: var(--vp-gray-50);
-            border-radius: 24px;
-            padding: 28px;
-            border: 1px solid var(--vp-gray-100);
-        }
-
-        .vp-step {
-            display: grid;
-            grid-template-columns: 56px 1fr;
-            gap: 18px;
-            align-items: start;
-            padding: 18px 0;
-            border-bottom: 1px solid var(--vp-gray-100);
-        }
-
-        .vp-step:last-child {
-            border-bottom: none;
-        }
-
-        .vp-step-number {
-            width: 48px;
-            height: 48px;
-            border-radius: 16px;
-            background: var(--vp-navy);
-            color: var(--vp-white);
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-        }
-
-        .vp-step h3 {
-            margin: 0 0 6px;
-            color: var(--vp-navy);
-            font-size: 18px;
-        }
-
-        .vp-step p {
-            margin: 0;
-        }
-
-        .vp-comparison {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
-        }
-
-        .vp-panel {
-            border-radius: 22px;
-            padding: 26px;
-            border: 1px solid var(--vp-gray-100);
-            background: var(--vp-white);
-            box-shadow: 0 12px 28px rgba(15, 49, 87, 0.06);
-        }
-
-        .vp-panel h3 {
-            color: var(--vp-navy);
-            margin-top: 0;
-        }
-
-        .vp-list {
-            padding-left: 20px;
-            margin: 12px 0 0;
-        }
-
-        .vp-list li {
-            margin-bottom: 8px;
-        }
-
-        .vp-highlight {
-            background: linear-gradient(135deg, var(--vp-yellow-soft), #ffffff);
-            border-left: 6px solid var(--vp-yellow);
-            border-radius: 18px;
-            padding: 22px 24px;
-            margin: 26px 0;
-        }
-
-        .vp-highlight strong {
-            color: var(--vp-navy);
-        }
-
-        .vp-footer {
-            margin-top: 42px;
-            background: var(--vp-navy);
-            color: var(--vp-white);
-            border-radius: 22px;
-            padding: 28px;
-            text-align: center;
-        }
-
-        .vp-footer h2 {
-            margin: 0 0 8px;
-        }
-
-        .vp-footer p {
-            margin: 0;
-            color: rgba(255, 255, 255, 0.82);
-        }
-
-        .vp-subtle {
-            color: var(--vp-gray-500);
-            font-size: 14px;
-        }
-
-        @media (max-width: 900px) {
-            .vp-grid,
-            .vp-grid-2,
-            .vp-comparison {
-                grid-template-columns: 1fr;
-            }
-
-            .vp-hero {
-                padding: 38px 28px;
-            }
-
-            .vp-hero h1 {
-                font-size: 34px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <main class="vp-wrapper">
-        <section class="vp-hero">
-            <div class="vp-hero-accent"><span class="vp-dot"></span> Odoo 18 Sales App</div>
-            <h1>Verkoop Projectgroepen</h1>
-            <p>
-                Control which products can be selected on quotations and sales orders based on the selected pricelist,
-                allowed product groups and explicit product exclusions.
-            </p>
-            <div class="vp-badges">
-                <span class="vp-badge">Pricelist-based filtering</span>
-                <span class="vp-badge">Product groups</span>
-                <span class="vp-badge">Forbidden products</span>
-                <span class="vp-badge">Optional product support</span>
-            </div>
-        </section>
-
-        <section class="vp-section">
-            <div class="vp-section-title">
-                <h2>Why use this module?</h2>
-                <p>
-                    Standard sales flows often require product availability to depend on a customer, project, region or pricelist.
-                    This module adds a practical and maintainable way to keep product selection under control.
-                </p>
-            </div>
-            <div class="vp-grid">
-                <div class="vp-card">
-                    <div class="vp-icon">1</div>
-                    <h3>Prevent wrong products</h3>
-                    <p>Sales users only see products that are valid for the selected pricelist, reducing mistakes in quotations.</p>
-                </div>
-                <div class="vp-card">
-                    <div class="vp-icon">2</div>
-                    <h3>Manage by groups</h3>
-                    <p>Group products into Product Groups and allow those groups per pricelist for clean catalog control.</p>
-                </div>
-                <div class="vp-card">
-                    <div class="vp-icon">3</div>
-                    <h3>Handle exceptions</h3>
-                    <p>Block specific products on a pricelist or exclude specific pricelists directly from a product.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="vp-section">
-            <div class="vp-section-title">
-                <h2>Main features</h2>
-                <p>Everything needed to manage pricelist-based product restrictions in Odoo Sales.</p>
-            </div>
-            <div class="vp-grid-2">
-                <div class="vp-card">
-                    <h3>Product Groups on products</h3>
-                    <p>Assign one or more project/product groups to product templates and use those groups to control product availability.</p>
-                </div>
-                <div class="vp-card">
-                    <h3>Allowed Product Groups on pricelists</h3>
-                    <p>Define which groups are allowed for each pricelist and filter the sales order product selector accordingly.</p>
-                </div>
-                <div class="vp-card">
-                    <h3>Forbidden Products on pricelists</h3>
-                    <p>Explicitly block individual products on a pricelist, even if the product group would normally be allowed.</p>
-                </div>
-                <div class="vp-card">
-                    <h3>Excluded Pricelists on products</h3>
-                    <p>Configure on a product which pricelists should never allow that product to be selected.</p>
-                </div>
-                <div class="vp-card">
-                    <h3>Automatic cleanup</h3>
-                    <p>Invalid order lines can be removed automatically or blocked, depending on the selected policy.</p>
-                </div>
-                <div class="vp-card">
-                    <h3>Optional product support</h3>
-                    <p>Optional products remain usable when they are linked to valid parent products and are not explicitly blocked.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="vp-section">
-            <div class="vp-section-title">
-                <h2>How it works</h2>
-                <p>Configure the rules once and let Odoo filter products automatically during quotation creation.</p>
-            </div>
-            <div class="vp-flow">
-                <div class="vp-step">
-                    <div class="vp-step-number">1</div>
-                    <div>
-                        <h3>Create Product Groups</h3>
-                        <p>Create groups such as regions, project types, customer catalog types or internal product categories.</p>
-                    </div>
-                </div>
-                <div class="vp-step">
-                    <div class="vp-step-number">2</div>
-                    <div>
-                        <h3>Assign groups to products</h3>
-                        <p>Open product templates and assign the relevant Product Groups.</p>
-                    </div>
-                </div>
-                <div class="vp-step">
-                    <div class="vp-step-number">3</div>
-                    <div>
-                        <h3>Configure pricelists</h3>
-                        <p>Set Allowed Product Groups, select a policy and optionally add Forbidden Products.</p>
-                    </div>
-                </div>
-                <div class="vp-step">
-                    <div class="vp-step-number">4</div>
-                    <div>
-                        <h3>Sell with confidence</h3>
-                        <p>When a pricelist is selected on a quotation, the product selector only offers valid products.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="vp-section">
-            <div class="vp-section-title">
-                <h2>Two levels of exclusions</h2>
-                <p>Use broad group restrictions for structure and explicit exclusions for exceptions.</p>
-            </div>
-            <div class="vp-comparison">
-                <div class="vp-panel">
-                    <h3>On the product</h3>
-                    <p><strong>Excluded Pricelists</strong> lets you define pricelists where that product may never be selected.</p>
-                    <ul class="vp-list">
-                        <li>Best for product-specific restrictions.</li>
-                        <li>Useful when one product is not valid for one or more sales catalogs.</li>
-                        <li>Easy to manage from the product form.</li>
-                    </ul>
-                </div>
-                <div class="vp-panel">
-                    <h3>On the pricelist</h3>
-                    <p><strong>Forbidden Products</strong> lets you block individual products directly from the pricelist.</p>
-                    <ul class="vp-list">
-                        <li>Best for pricelist-specific exceptions.</li>
-                        <li>Useful when a catalog excludes a small number of products.</li>
-                        <li>Easy to manage from the pricelist form.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <div class="vp-highlight">
-            <strong>Recommended setup:</strong> use Product Groups for your main product availability rules, and use Forbidden Products
-            or Excluded Pricelists only for exceptions. This keeps configuration simple and predictable.
+    <!-- HERO -->
+    <div style="background: #0f3157; border-radius: 18px; padding: 42px 38px; color: #ffffff; margin-bottom: 32px;">
+        <div style="display: inline-block; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22); border-radius: 999px; padding: 7px 14px; font-size: 14px; margin-bottom: 16px;">
+            <span style="display: inline-block; width: 9px; height: 9px; background: #f5c400; border-radius: 50%; margin-right: 8px;"></span>
+            Odoo 18 Sales App
         </div>
+        <h1 style="font-size: 42px; line-height: 1.15; margin: 0 0 14px; color: #ffffff; font-weight: 800;">
+            Verkoop Projectgroepen
+        </h1>
+        <p style="font-size: 18px; max-width: 780px; margin: 0 0 24px; color: rgba(255,255,255,0.9);">
+            Restrict sales product selection by pricelist, product groups and explicit product exclusions.
+            Keep sales quotations accurate by showing only products that are valid for the selected pricelist.
+        </p>
+        <div>
+            <span style="display: inline-block; background: #f5c400; color: #202020; padding: 8px 12px; border-radius: 10px; font-weight: 700; font-size: 14px; margin: 4px 6px 4px 0;">Pricelist filtering</span>
+            <span style="display: inline-block; background: #f5c400; color: #202020; padding: 8px 12px; border-radius: 10px; font-weight: 700; font-size: 14px; margin: 4px 6px 4px 0;">Product groups</span>
+            <span style="display: inline-block; background: #f5c400; color: #202020; padding: 8px 12px; border-radius: 10px; font-weight: 700; font-size: 14px; margin: 4px 6px 4px 0;">Forbidden products</span>
+            <span style="display: inline-block; background: #f5c400; color: #202020; padding: 8px 12px; border-radius: 10px; font-weight: 700; font-size: 14px; margin: 4px 6px 4px 0;">Optional products</span>
+        </div>
+    </div>
 
-        <section class="vp-section">
-            <div class="vp-section-title">
-                <h2>Typical use cases</h2>
-            </div>
-            <div class="vp-grid">
-                <div class="vp-card">
-                    <h3>Regional product catalogs</h3>
-                    <p>Only show products that are available for a selected region or local project pricelist.</p>
-                </div>
-                <div class="vp-card">
-                    <h3>Customer-specific pricing</h3>
-                    <p>Control which products are valid for a customer or contract-specific pricelist.</p>
-                </div>
-                <div class="vp-card">
-                    <h3>Project-based sales</h3>
-                    <p>Separate products by project type while keeping a single shared product catalog in Odoo.</p>
-                </div>
-            </div>
-        </section>
+    <!-- WHY -->
+    <div style="text-align: center; margin: 0 0 24px;">
+        <h2 style="font-size: 30px; color: #0f3157; margin: 0 0 8px; font-weight: 800;">Why use this module?</h2>
+        <p style="font-size: 16px; color: #64748b; max-width: 760px; margin: 0 auto;">
+            Standard sales flows often require product availability to depend on a customer, project, region or pricelist.
+            This module adds a practical and maintainable way to keep product selection under control.
+        </p>
+    </div>
 
-        <section class="vp-section">
-            <div class="vp-section-title">
-                <h2>Configuration overview</h2>
-            </div>
-            <div class="vp-grid-2">
-                <div class="vp-card">
-                    <h3>Product form</h3>
-                    <ul class="vp-list">
-                        <li>Product Groups</li>
-                        <li>Excluded Pricelists</li>
-                    </ul>
-                </div>
-                <div class="vp-card">
-                    <h3>Pricelist form</h3>
-                    <ul class="vp-list">
-                        <li>Allowed Product Groups</li>
-                        <li>Product Group Policy</li>
-                        <li>Forbidden Products</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+    <div style="display: table; width: 100%; border-spacing: 16px; margin-bottom: 32px;">
+        <div style="display: table-cell; width: 33.333%; vertical-align: top; background: #ffffff; border: 1px solid #eef2f6; border-radius: 16px; padding: 22px; box-shadow: 0 10px 24px rgba(15,49,87,0.08);">
+            <div style="width: 42px; height: 42px; border-radius: 12px; background: #fff6c7; color: #0f3157; font-weight: 800; text-align: center; line-height: 42px; margin-bottom: 14px;">1</div>
+            <h3 style="color: #0f3157; margin: 0 0 10px; font-size: 20px;">Prevent wrong products</h3>
+            <p style="margin: 0;">Sales users only see products that are valid for the selected pricelist, reducing mistakes in quotations.</p>
+        </div>
+        <div style="display: table-cell; width: 33.333%; vertical-align: top; background: #ffffff; border: 1px solid #eef2f6; border-radius: 16px; padding: 22px; box-shadow: 0 10px 24px rgba(15,49,87,0.08);">
+            <div style="width: 42px; height: 42px; border-radius: 12px; background: #fff6c7; color: #0f3157; font-weight: 800; text-align: center; line-height: 42px; margin-bottom: 14px;">2</div>
+            <h3 style="color: #0f3157; margin: 0 0 10px; font-size: 20px;">Manage by groups</h3>
+            <p style="margin: 0;">Group products into Product Groups and allow those groups per pricelist for clean catalog control.</p>
+        </div>
+        <div style="display: table-cell; width: 33.333%; vertical-align: top; background: #ffffff; border: 1px solid #eef2f6; border-radius: 16px; padding: 22px; box-shadow: 0 10px 24px rgba(15,49,87,0.08);">
+            <div style="width: 42px; height: 42px; border-radius: 12px; background: #fff6c7; color: #0f3157; font-weight: 800; text-align: center; line-height: 42px; margin-bottom: 14px;">3</div>
+            <h3 style="color: #0f3157; margin: 0 0 10px; font-size: 20px;">Handle exceptions</h3>
+            <p style="margin: 0;">Block specific products on a pricelist or exclude specific pricelists directly from a product.</p>
+        </div>
+    </div>
 
-        <footer class="vp-footer">
-            <h2>Support</h2>
-            <p>For support requests, use the support contact configured on the Odoo Apps purchase page.</p>
-            <p class="vp-subtle">Technical support email: stefanovich85@outlook.com</p>
-        </footer>
-    </main>
-</body>
-</html>
+    <!-- FEATURES -->
+    <div style="text-align: center; margin: 0 0 24px;">
+        <h2 style="font-size: 30px; color: #0f3157; margin: 0 0 8px; font-weight: 800;">Main features</h2>
+        <p style="font-size: 16px; color: #64748b; max-width: 760px; margin: 0 auto;">Everything needed to manage pricelist-based product restrictions in Odoo Sales.</p>
+    </div>
+
+    <div style="display: table; width: 100%; border-spacing: 16px; margin-bottom: 12px;">
+        <div style="display: table-cell; width: 50%; vertical-align: top; background: #f7f9fb; border-radius: 16px; padding: 22px; border: 1px solid #eef2f6;">
+            <h3 style="color: #0f3157; margin: 0 0 8px;">Product Groups on products</h3>
+            <p style="margin: 0;">Assign one or more product groups to product templates and use those groups to control product availability.</p>
+        </div>
+        <div style="display: table-cell; width: 50%; vertical-align: top; background: #f7f9fb; border-radius: 16px; padding: 22px; border: 1px solid #eef2f6;">
+            <h3 style="color: #0f3157; margin: 0 0 8px;">Allowed Product Groups on pricelists</h3>
+            <p style="margin: 0;">Define which groups are allowed for each pricelist and filter the sales order product selector accordingly.</p>
+        </div>
+    </div>
+    <div style="display: table; width: 100%; border-spacing: 16px; margin-bottom: 12px;">
+        <div style="display: table-cell; width: 50%; vertical-align: top; background: #f7f9fb; border-radius: 16px; padding: 22px; border: 1px solid #eef2f6;">
+            <h3 style="color: #0f3157; margin: 0 0 8px;">Forbidden Products on pricelists</h3>
+            <p style="margin: 0;">Explicitly block individual products on a pricelist, even if the product group would normally be allowed.</p>
+        </div>
+        <div style="display: table-cell; width: 50%; vertical-align: top; background: #f7f9fb; border-radius: 16px; padding: 22px; border: 1px solid #eef2f6;">
+            <h3 style="color: #0f3157; margin: 0 0 8px;">Excluded Pricelists on products</h3>
+            <p style="margin: 0;">Configure on a product which pricelists should never allow that product to be selected.</p>
+        </div>
+    </div>
+    <div style="display: table; width: 100%; border-spacing: 16px; margin-bottom: 32px;">
+        <div style="display: table-cell; width: 50%; vertical-align: top; background: #f7f9fb; border-radius: 16px; padding: 22px; border: 1px solid #eef2f6;">
+            <h3 style="color: #0f3157; margin: 0 0 8px;">Automatic cleanup</h3>
+            <p style="margin: 0;">Invalid order lines can be removed automatically or blocked, depending on the selected policy.</p>
+        </div>
+        <div style="display: table-cell; width: 50%; vertical-align: top; background: #f7f9fb; border-radius: 16px; padding: 22px; border: 1px solid #eef2f6;">
+            <h3 style="color: #0f3157; margin: 0 0 8px;">Optional product support</h3>
+            <p style="margin: 0;">Optional products remain usable when linked to valid parent products and not explicitly blocked.</p>
+        </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div style="background: #f7f9fb; border: 1px solid #eef2f6; border-radius: 18px; padding: 30px; margin-bottom: 32px;">
+        <h2 style="font-size: 30px; color: #0f3157; margin: 0 0 18px; font-weight: 800; text-align: center;">How it works</h2>
+        <div style="border-bottom: 1px solid #e5eaf0; padding: 14px 0;">
+            <strong style="color: #0f3157;">1. Create Product Groups</strong><br />
+            Create groups such as regions, project types, customer catalog types or internal product categories.
+        </div>
+        <div style="border-bottom: 1px solid #e5eaf0; padding: 14px 0;">
+            <strong style="color: #0f3157;">2. Assign groups to products</strong><br />
+            Open product templates and assign the relevant Product Groups.
+        </div>
+        <div style="border-bottom: 1px solid #e5eaf0; padding: 14px 0;">
+            <strong style="color: #0f3157;">3. Configure pricelists</strong><br />
+            Set Allowed Product Groups, select a policy and optionally add Forbidden Products.
+        </div>
+        <div style="padding: 14px 0 0;">
+            <strong style="color: #0f3157;">4. Sell with confidence</strong><br />
+            When a pricelist is selected on a quotation, the product selector only offers valid products.
+        </div>
+    </div>
+
+    <!-- EXCLUSIONS -->
+    <div style="text-align: center; margin: 0 0 24px;">
+        <h2 style="font-size: 30px; color: #0f3157; margin: 0 0 8px; font-weight: 800;">Two levels of exclusions</h2>
+        <p style="font-size: 16px; color: #64748b; max-width: 760px; margin: 0 auto;">Use broad group restrictions for structure and explicit exclusions for exceptions.</p>
+    </div>
+
+    <div style="display: table; width: 100%; border-spacing: 16px; margin-bottom: 28px;">
+        <div style="display: table-cell; width: 50%; vertical-align: top; background: #ffffff; border: 1px solid #eef2f6; border-radius: 16px; padding: 24px; box-shadow: 0 10px 24px rgba(15,49,87,0.06);">
+            <h3 style="color: #0f3157; margin-top: 0;">On the product</h3>
+            <p><strong>Excluded Pricelists</strong> lets you define pricelists where that product may never be selected.</p>
+            <ul style="margin: 10px 0 0 20px; padding: 0;">
+                <li>Best for product-specific restrictions.</li>
+                <li>Useful when one product is not valid for one or more sales catalogs.</li>
+                <li>Easy to manage from the product form.</li>
+            </ul>
+        </div>
+        <div style="display: table-cell; width: 50%; vertical-align: top; background: #ffffff; border: 1px solid #eef2f6; border-radius: 16px; padding: 24px; box-shadow: 0 10px 24px rgba(15,49,87,0.06);">
+            <h3 style="color: #0f3157; margin-top: 0;">On the pricelist</h3>
+            <p><strong>Forbidden Products</strong> lets you block individual products directly from the pricelist.</p>
+            <ul style="margin: 10px 0 0 20px; padding: 0;">
+                <li>Best for pricelist-specific exceptions.</li>
+                <li>Useful when a catalog excludes a small number of products.</li>
+                <li>Easy to manage from the pricelist form.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div style="background: #fff6c7; border-left: 6px solid #f5c400; border-radius: 14px; padding: 22px 24px; margin-bottom: 32px;">
+        <strong style="color: #0f3157;">Recommended setup:</strong>
+        use Product Groups for your main product availability rules, and use Forbidden Products or Excluded Pricelists only for exceptions.
+        This keeps configuration simple and predictable.
+    </div>
+
+    <!-- USE CASES -->
+    <div style="text-align: center; margin: 0 0 24px;">
+        <h2 style="font-size: 30px; color: #0f3157; margin: 0 0 8px; font-weight: 800;">Typical use cases</h2>
+    </div>
+
+    <div style="display: table; width: 100%; border-spacing: 16px; margin-bottom: 32px;">
+        <div style="display: table-cell; width: 33.333%; vertical-align: top; background:#ffffff; border:1px solid #eef2f6; border-radius:16px; padding:22px;">
+            <h3 style="color:#0f3157; margin-top:0;">Regional product catalogs</h3>
+            <p>Only show products that are available for a selected region or local project pricelist.</p>
+        </div>
+        <div style="display: table-cell; width: 33.333%; vertical-align: top; background:#ffffff; border:1px solid #eef2f6; border-radius:16px; padding:22px;">
+            <h3 style="color:#0f3157; margin-top:0;">Customer-specific pricing</h3>
+            <p>Control which products are valid for a customer or contract-specific pricelist.</p>
+        </div>
+        <div style="display: table-cell; width: 33.333%; vertical-align: top; background:#ffffff; border:1px solid #eef2f6; border-radius:16px; padding:22px;">
+            <h3 style="color:#0f3157; margin-top:0;">Project-based sales</h3>
+            <p>Separate products by project type while keeping a single shared product catalog in Odoo.</p>
+        </div>
+    </div>
+
+    <!-- CONFIG -->
+    <div style="display: table; width: 100%; border-spacing: 16px; margin-bottom: 32px;">
+        <div style="display: table-cell; width: 50%; vertical-align: top; background:#0f3157; color:#ffffff; border-radius:16px; padding:24px;">
+            <h3 style="color:#ffffff; margin-top:0;">Product form</h3>
+            <ul style="margin: 0 0 0 20px; padding: 0;">
+                <li>Product Groups</li>
+                <li>Excluded Pricelists</li>
+            </ul>
+        </div>
+        <div style="display: table-cell; width: 50%; vertical-align: top; background:#0f3157; color:#ffffff; border-radius:16px; padding:24px;">
+            <h3 style="color:#ffffff; margin-top:0;">Pricelist form</h3>
+            <ul style="margin: 0 0 0 20px; padding: 0;">
+                <li>Allowed Product Groups</li>
+                <li>Product Group Policy</li>
+                <li>Forbidden Products</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SUPPORT -->
+    <div style="background:#0f3157; color:#ffffff; border-radius:18px; padding:28px; text-align:center;">
+        <h2 style="color:#ffffff; margin:0 0 8px;">Support</h2>
+        <p style="margin:0 0 6px; color:rgba(255,255,255,0.9);">For support requests, use the support contact configured on the Odoo Apps purchase page.</p>
+        <p style="margin:0; color:rgba(255,255,255,0.78); font-size:14px;">Technical support email: stefanovich85@outlook.com</p>
+    </div>
+
+</section>
