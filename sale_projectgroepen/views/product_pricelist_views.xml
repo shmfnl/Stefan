@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_pricelist_form_projectgroepen_inherit" model="ir.ui.view">
+        <field name="name">product.pricelist.form.projectgroepen.inherit</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet//group[1]" position="after">
+                <group string="Projectgroepen">
+                    <field name="allowed_project_group_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                    <field name="project_group_policy"/>
+                    <field name="forbidden_product_tmpl_ids" widget="many2many_tags"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
