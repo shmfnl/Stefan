@@ -1,0 +1,101 @@
+# Translation of Verkoop Projectgroepen for English (US)
+msgid ""
+msgstr ""
+"Project-Id-Version: Verkoop Projectgroepen 18.0.1.4.0\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Verkoop Projectgroepen"
+msgstr "Sales Product Groups"
+
+msgid "Projectgroep"
+msgstr "Product Group"
+
+msgid "Projectgroepen"
+msgstr "Product Groups"
+
+msgid "Naam"
+msgstr "Name"
+
+msgid "Code"
+msgstr "Code"
+
+msgid "Actief"
+msgstr "Active"
+
+msgid "Omschrijving"
+msgstr "Description"
+
+msgid "Bedrijf"
+msgstr "Company"
+
+msgid "Kleurindex"
+msgstr "Color Index"
+
+msgid "Volgorde"
+msgstr "Sequence"
+
+msgid "Niet toestaan op prijslijsten"
+msgstr "Excluded Pricelists"
+
+msgid "Op deze prijslijsten mag dit product niet gekozen worden."
+msgstr "This product cannot be selected on these pricelists."
+
+msgid "Toegestane projectgroepen"
+msgstr "Allowed Product Groups"
+
+msgid "Alleen producten binnen deze projectgroepen mogen gekozen worden op deze prijslijst."
+msgstr "Only products in these product groups can be selected on this pricelist."
+
+msgid "Verboden producten"
+msgstr "Forbidden Products"
+
+msgid "Deze producten mogen op deze prijslijst niet gekozen worden."
+msgstr "These products cannot be selected on this pricelist."
+
+msgid "Projectgroepenbeleid"
+msgstr "Product Group Policy"
+
+msgid "Geen beperking"
+msgstr "No Restriction"
+
+msgid "Niet-toegestane regels verwijderen"
+msgstr "Remove Invalid Lines"
+
+msgid "Niet-toegestane regels blokkeren"
+msgstr "Block Invalid Lines"
+
+msgid "Productregels automatisch verwijderd"
+msgstr "Product Lines Removed"
+
+msgid "Niet-toegestane producten aanwezig"
+msgstr "Invalid Products Present"
+
+msgid "Product verwijderd"
+msgstr "Product Removed"
+
+msgid "Deze prijslijst staat één of meer producten niet toe. Niet-toegestane producten: %s"
+msgstr "This pricelist does not allow one or more products. Forbidden products: %s"
+
+msgid "Deze prijslijst staat één of meer producten niet toe. Controleer deze regels: %s"
+msgstr "This pricelist does not allow one or more products. Check these lines: %s"
+
+msgid "Het product \"%s\" is verwijderd omdat de gekozen prijslijst dit product niet toestaat."
+msgstr "The product \"%s\" was removed because the selected pricelist does not allow this product."
+
+msgid "Verwijderd product:\n- %(items)s"
+msgstr "Removed product:\n- %(items)s"
+
+msgid "Verwijderde producten:\n- %(items)s"
+msgstr "Removed products:\n- %(items)s"
+
+msgid "Verwijderde secties:\n- %(items)s"
+msgstr "Removed sections:\n- %(items)s"
+
+msgid "Verwijderde notities:\n- %(items)s"
+msgstr "Removed notes:\n- %(items)s"
+
+msgid "%(count)s productregel(s) en gekoppelde structuurregels zijn automatisch verwijderd omdat de gekozen prijslijst het product niet toestaat of alleen producten toestaat binnen de toegestane projectgroepen."
+msgstr "%(count)s product line(s) and related structure lines were automatically removed because the selected pricelist does not allow the product or only allows products within the allowed product groups."

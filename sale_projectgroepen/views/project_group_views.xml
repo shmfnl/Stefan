@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_project_group_tree" model="ir.ui.view">
+        <field name="name">sale.project.group.tree</field>
+        <field name="model">sale.project.group</field>
+        <field name="arch" type="xml">
+            <list string="Projectgroepen">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="company_id"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_sale_project_group_form" model="ir.ui.view">
+        <field name="name">sale.project.group.form</field>
+        <field name="model">sale.project.group</field>
+        <field name="arch" type="xml">
+            <form string="Projectgroep">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="sequence"/>
+                            <field name="color" widget="color_picker"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sale_project_group" model="ir.actions.act_window">
+        <field name="name">Projectgroepen</field>
+        <field name="res_model">sale.project.group</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="menu_sale_project_group_root" model="ir.ui.menu">
+        <field name="name">Projectgroepen</field>
+        <field name="parent_id" search="[('parent_id', '=', ref('sale.sale_menu_root')), ('name', 'in', ['Products', 'Producten'])]"/>
+        <field name="action" ref="action_sale_project_group"/>
+        <field name="sequence" type="int">90</field>
+    </record>
+</odoo>
